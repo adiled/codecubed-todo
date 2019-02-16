@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import React, {useContext} from 'react';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 
 import './app.css';
-import {Store} from './store'
+import Context, {Store} from './store'
 
 import Dashboard from './pages/Dashboard'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const context = useContext(Context)
+  return (
+  <Route {...rest} render={(props) => (
+    context.store.state.authenticated === true
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+)
+}
 
 const App = () => (
   <Store> 
@@ -14,9 +25,9 @@ const App = () => (
       <div className="App">
         <Route exact path="/" component={Landing}/>
         <Route path="/login" component={Login}/>
-        <Route path="/my" component={Dashboard}/>
+        <PrivateRoute path="/my" component={Dashboard}/>
       </div>
-    </Router> 
+    </Router>
   </Store>
 )
 

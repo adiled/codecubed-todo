@@ -1,5 +1,11 @@
+*:focus {outline: none!important; border: 0; box-shadow: none;}
+* {outline: none!important; border: 0; box-shadow: none;}
+
+
+
 html {
   font-size: 16px;
 }
 
 button {cursor: pointer; border: 0;}
+

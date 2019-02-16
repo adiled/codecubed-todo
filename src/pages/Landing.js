@@ -1,39 +1,29 @@
-import React, {useContext, useState} from 'react'
-import Context from '../store'
+import React, {useContext} from 'react'
+import {Link} from 'react-router-dom';
 
-import TodoList from '../components/TodoList'
-import TodoItem from '../components/TodoItem'
+// import Context from '../store'
+import Logo from '../components/Logo.js'
+import Button from '../components/Button.js'
+
+const pageLayout = {
+  minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexFlow: 'column',
+  background: '#fff', boxShadow: '0 0 0 5px rgb(154,70,255) inset'
+}
+
+//
 
 const Landing = () => {
-  const context = useContext(Context)
-
-  const [newItemShow, setNewItemShow] = useState(false)
-
-  const newTask = (data) => {
-    context.store.dispatch({
-      type: 'addTodoItem',
-      payload: data
-    })
-  }
+  // const context = useContext(Context)
 
   return (
-    <div>
-      <TodoList toggleNewTask={setNewItemShow} confirmNewTask={newTask} >
-
-        {newItemShow && <TodoItem data={context.store.state.todoItemDefault} />}
-        {context.store.state.todoList.map(item =>         
-          <TodoItem 
-          key={item.id}
-          data={item}
-          markAsComplete={() => {
-            context.store.dispatch({action: 'markTodoItemComplete', id: item.id})
-          }}
-          ></TodoItem>
-        )}
-      </TodoList>
+    <div style={pageLayout}>
+      <Logo></Logo>
+      <Link to="/my">
+      <Button>LET'S ORGANIZE!</Button>  
+      </Link>
+      
     </div>
     )
-  
 
 }
 
