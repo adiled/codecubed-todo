@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 
 import './app.css';
@@ -19,7 +19,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 )
 }
 
-const App = () => (
+const App = () => {
+
+  useEffect(() => {
+    document.title = 'CUBEDTODO';
+  })
+
+  return (
   <Store> 
     <Router>
       <div className="App">
@@ -30,5 +36,6 @@ const App = () => (
     </Router>
   </Store>
 )
+}
 
 export default App
